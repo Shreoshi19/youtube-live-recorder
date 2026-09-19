@@ -24,4 +24,11 @@ NEW="${MAJOR}.${MINOR}.${PATCH}"
 sed -i "s/\"version\": *\"${CURRENT}\"/\"version\": \"${NEW}\"/" "$MANIFEST"
 
 echo "Bumped $CURRENT -> $NEW"
-echo "Run: git add manifest.json && git commit -m \"chore: release v${NEW}\" && git tag v${NEW} && git push && git push --tags"
+
+cd "$ROOT_DIR"
+git add manifest.json
+git commit -m "chore: release v${NEW}"
+git tag "v${NEW}"
+git push
+git push --tags
+echo "Pushed v${NEW}"
