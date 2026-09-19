@@ -5,7 +5,7 @@ file on your computer, entirely in your browser. No third-party services, no
 external servers.
 
 - Records video + audio from the page itself (`captureStream` + `MediaRecorder`)
-- Saves the recording to your **Downloads** folder as a WebM (VP9/Opus) file
+- Saves the recording to your **Downloads** folder as an **MP4** file (plays in any modern player)
 - Shows a `REC` badge in the toolbar and keeps the system awake while recording
 - Works on any YouTube watch/live page without knowing the URL in advance
 
@@ -28,7 +28,9 @@ external servers.
 3. Press **Start recording**. The toolbar icon turns into a red **REC** badge.
 4. When the session is over, open the popup again and press **Stop and save**.
 
-The file is saved as `StreamTitle_YYYYMMDDHHMMSS.webm` in `~/Downloads`.
+The file is saved as `StreamTitle_YYYYMMDDHHMMSS.mp4` in `~/Downloads`. The browser
+records MP4 with its default codecs (VP9/Opus); if MP4 recording isn't supported it
+falls back to a WebM (VP9/Opus) file.
 
 ## Important notes
 
@@ -46,8 +48,10 @@ The file is saved as `StreamTitle_YYYYMMDDHHMMSS.webm` in `~/Downloads`.
 
 The extension's content script calls `HTMLMediaElement.captureStream()` on
 YouTube's `<video>` element (audio falls back to a Web Audio route if needed),
-feeds the stream into a `MediaRecorder` (VP9/Opus in WebM), and hands the result
-to the browser's **Downloads** API when you press Stop.
+feeds the stream into a `MediaRecorder` (MP4 with the browser's default codecs,
+falling back to VP9/Opus WebM), and hands the result to the browser's
+**Downloads** API when you press Stop. The recorded file plays in any standard
+player.
 
 ---
 
@@ -75,6 +79,44 @@ Useful options:
 
 If files in the folder change, click the **rotate (reload)** icon on the
 extension card in `chrome://extensions`, then reload any open YouTube tabs.
+
+## Releasing & Packaging
+
+Scripts in `scripts/` automate versioning and packaging for GitHub Releases.
+
+### Bump version
+
+```bash
+# from repo root
+./scripts/bump-version.sh patch   # 1.1.0 -> 1.1.1
+./scripts/bump-version.sh minor   # 1.1.0 -> 1.2.0
+./scripts/bump-version.sh major   # 1.1.0 -> 2.0.0
+./scripts/bump-version.sh 1.2.3   # explicit version
+```
+
+The script updates `manifest.json` and prints the git commands to commit, tag, and push.
+
+### Package for GitHub Release
+
+```bash
+./scripts/package-release.sh
+```
+
+Outputs `dist/youtube-live-recorder-vX.Y.Z.zip` (ready to attach to a GitHub Release).
+
+### Publish a release
+
+1. Bump version: `./scripts/bump-version.sh patch`
+2. Commit & tag: `git add manifest.json && git commit -m "chore: release vX.Y.Z" && git tag vX.Y.Z`
+3. Push: `git push && git push --tags`
+4. Package: `./scripts/package-release.sh`
+5. On GitHub: create a new Release from the tag, attach `dist/youtube-live-recorder-vX.Y.Z.zip`
+
+### Chrome Web Store (optional)
+
+Upload the same zip from `dist/` to the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole).
+
+---
 
 ## Troubleshooting
 
