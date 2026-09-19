@@ -6,6 +6,7 @@ VERSION=$(grep -o '"version": *"[^"]*"' "${ROOT_DIR}/manifest.json" | cut -d'"' 
 OUT_DIR="${ROOT_DIR}/dist"
 ZIP_NAME="youtube-live-recorder-v${VERSION}.zip"
 
+rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
 cd "$ROOT_DIR"
 zip -r "${OUT_DIR}/${ZIP_NAME}" . \

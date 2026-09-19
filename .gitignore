@@ -1,0 +1,17 @@
+# Build outputs
+dist/
+*.zip
+*.crx
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
