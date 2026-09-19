@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        width: 300px;
+        margin: 0;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        background: #0f0f0f;
+        color: #f1f1f1;
+      }
+      .wrap { padding: 16px; }
+      h1 { font-size: 15px; margin: 0 0 12px; }
+      .status {
+        background: #1f1f1f;
+        border-radius: 8px;
+        padding: 10px 12px;
+        margin-bottom: 12px;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .status .row { display: flex; justify-content: space-between; }
+      .dot {
+        display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+        margin-right: 6px; vertical-align: middle;
+      }
+      .dot.red { background: #cc0000; animation: pulse 1.2s infinite; }
+      .dot.green { background: #1db954; }
+      .dot.gray { background: #555; }
+      button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      #toggle { background: #cc0000; color: #fff; }
+      #toggle.stop { background: #1db954; }
+      #toggle:disabled { background: #444; color: #aaa; cursor: not-allowed; }
+      .msg { margin-top: 10px; font-size: 12px; line-height: 1.4; min-height: 0; }
+      .msg.error { color: #ff8080; }
+      .msg.info { color: #9aa0a6; }
+      .msg.warn { color: #ffd966; }
+      .foot { margin-top: 12px; font-size: 11px; color: #9aa0a6; line-height: 1.5; }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.25; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>YouTube Live Recorder</h1>
+      <div class="status">
+        <div class="row">
+          <span><span class="dot gray" id="liveDot"></span>Live stream</span>
+          <span id="liveText">unknown</span>
+        </div>
+        <div class="row">
+          <span><span class="dot gray" id="recDot"></span>Recording</span>
+          <span id="recText">idle</span>
+        </div>
+        <div class="row">
+          <span>Elapsed</span>
+          <span id="elapsed">0:00</span>
+        </div>
+      </div>
+      <button id="toggle" type="button">Start recording</button>
+      <div class="msg info" id="msg">Open the YouTube live stream in the active tab, then press Start.</div>
+      <div class="foot">
+        Keep this tab open and visible while recording. When you press Stop, the file saves
+        to your Downloads folder. Set video quality to a fixed value (not Auto) for a
+        stable recording.
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>
