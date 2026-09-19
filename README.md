@@ -13,11 +13,22 @@ external servers.
 
 ## Install
 
-1. Open Chrome and go to `chrome://extensions`
-2. Enable **Developer mode** (toggle in the top-right corner)
-3. Click **Load unpacked**
-4. Select this folder: `~/youtube-live-recorder`
-5. Click the puzzle icon in the toolbar and **pin** "YouTube Live Recorder"
+### From source (this repo)
+
+1. Clone or download this repository
+2. Open Chrome and go to `chrome://extensions`
+3. Enable **Developer mode** (toggle in the top-right corner)
+4. Click **Load unpacked**
+5. Select the extracted folder (e.g., `~/youtube-live-recorder`)
+6. Click the puzzle icon in the toolbar and **pin** "YouTube Live Recorder"
+
+### From a GitHub Release zip
+
+1. Download `youtube-live-recorder-vX.Y.Z.zip` from the [Releases page](https://github.com/Shreoshi19/youtube-live-recorder/releases)
+2. **Extract** the zip to a folder (e.g., `~/youtube-live-recorder`)
+3. Open Chrome → `chrome://extensions` → enable **Developer mode**
+4. Click **Load unpacked** and select the **extracted folder** (not the zip file)
+5. Pin the extension from the toolbar
 
 ## How to use
 
